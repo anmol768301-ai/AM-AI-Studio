@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AM AI STUDIO - Smart Video Editor</title>
+    <style>
+        :root {
+            --primary-color: #00d2ff;
+            --secondary-color: #3a7bd5;
+            --bg-dark: #0f2027;
+            --text-light: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(to right, #2c5364, #203a43, #0f2027);
+            color: var(--text-light);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+            text-align: center;
+            width: 90%;
+            max-width: 450px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            background: linear-gradient(to right, #00d2ff, #91eae4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        p {
+            color: #ccc;
+            margin-bottom: 30px;
+        }
+
+        .upload-section {
+            border: 2px dashed var(--primary-color);
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            transition: 0.3s;
+        }
+
+        .upload-section:hover {
+            background: rgba(0, 210, 255, 0.05);
+        }
+
+        input[type="file"] {
+            display: none;
+        }
+
+        .custom-file-upload {
+            display: inline-block;
+            padding: 10px 20px;
+            cursor: pointer;
+            background: var(--secondary-color);
+            border-radius: 5px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        button {
+            background: linear-gradient(to right, #00d2ff, #3a7bd5);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: bold;
+            text-transform: uppercase;
+            box-shadow: 0 4px 15px rgba(0, 210, 255, 0.3);
+            transition: 0.3s;
+        }
+
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 210, 255, 0.5);
+        }
+
+        .footer {
+            margin-top: 20px;
+            font-size: 0.8rem;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>AM AI STUDIO</h1>
+    <p>Apni video ko AI se Fast Edit karein</p>
+
+    <form action="/process" method="post" enctype="multipart/form-data">
+        <div class="upload-section">
+            <label for="video-upload" class="custom-file-upload">
+                📁 Video Select Karein
+            </label>
+            <input id="video-upload" type="file" name="video" accept="video/*" required>
+            <div id="file-name" style="margin-top: 10px; font-size: 0.9rem; color: #00d2ff;"></div>
+        </div>
+
+        <button type="submit">AI Editing Shuru Karein</button>
+    </form>
+
+    <div class="footer">
+        Powered by AM Studio AI • Render Cloud
+    </div>
+</div>
+
+<script>
+    // File select karne par naam dikhane ke liye
+    document.getElementById('video-upload').onchange = function () {
+        document.getElementById('file-name').innerHTML = "Selected: " + this.files[0].name;
+    };
+</script>
+
+</body>
+</html>
