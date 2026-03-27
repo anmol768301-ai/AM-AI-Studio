@@ -47,6 +47,10 @@ def process_video():
     except Exception as e:
         return f"Editing Error: {str(e)}", 500
 
+import os
+
 if __name__ == '__main__':
-    # Phone ke liye 0.0.0.0 aur port 8080
-    app.run(host='0.0.0.0', port=8080, debug=True)
+    # Render ke liye dynamic port setting
+    port = int(os.environ.get('PORT', 8080))
+    app.run(host='0.0.0.0', port=port)
+    
