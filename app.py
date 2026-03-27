@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, send_file
 import os
 import imageio_ffmpeg
-from moviepy.editor import VideoFileClip
+from moviepy import VideoFileClip
 
 # --- FFMPEG ERROR FIX ---
 # Ye hissa MoviePy ko batata hai ki ffmpeg kahan chhupa hai
