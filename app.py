@@ -5,7 +5,6 @@ import moviepy.video.fx as fx
 
 app = Flask(__name__)
 
-# Render ke liye /tmp folder sabse best hai
 UPLOAD_FOLDER = '/tmp'
 
 @app.route('/')
@@ -24,20 +23,24 @@ def process_video():
     try:
         video_file.save(input_path)
 
-        # Video ko memory-efficient tarike se process karein
+        # 1 Minute ki video ke liye Smart Processing
         with VideoFileClip(input_path) as clip:
-            # Low quality resize taaki server crash na ho
-            small_clip = clip.resized(height=360) 
-            final_clip = small_clip.with_effects([fx.MultiplySpeed(1.5)])
+            # Step 1: Resolution thoda kam karein taaki server na phate (480p)
+            if clip.height > 480:
+                clip = clip.resized(height=480)
             
-            # Sabse light settings
+            # Step 2: AI Speed Effect
+            final_clip = clip.with_effects([fx.MultiplySpeed(1.5)])
+            
+            # Step 3: Fast Rendering Settings
             final_clip.write_videofile(
                 output_path, 
                 codec="libx264", 
                 audio_codec="aac",
-                preset="ultrafast",
+                preset="ultrafast", # Sabse tez mode
+                bitrate="1000k",    # File size chhota rakhne ke liye
                 logger=None,
-                threads=1 # Zyada threads se 502 error aata hai
+                threads=1
             )
 
         return send_file(output_path, as_attachment=True)
@@ -45,6 +48,5 @@ def process_video():
     except Exception as e:
         return f"Error: {str(e)}", 500
     finally:
-        # Files delete karna zaroori hai memory bachane ke liye
         if os.path.exists(input_path): os.remove(input_path)
             
